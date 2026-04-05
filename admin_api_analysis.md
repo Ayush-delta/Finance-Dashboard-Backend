@@ -459,9 +459,6 @@ curl -s -X DELETE http://localhost:3000/api/records/cmnkca7w50006zwvnid70z05p/ha
 }
 ```
 
-> [!CAUTION]
-> This is irreversible. The record is permanently removed from the database.
-
 ---
 
 ## 🔒 Admin Permissions Matrix
