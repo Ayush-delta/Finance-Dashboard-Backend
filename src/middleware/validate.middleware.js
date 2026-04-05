@@ -1,9 +1,7 @@
 const { ValidationError } = require('../utils/errors');
 
-/**
- * validate(schema, target) — validates req[target] against a Zod schema
- * Defaults to validating req.body
- */
+// validate(schema, target) — validates req[target] against a Zod schema
+// Defaults to validating req.body
 const validate = (schema, target = 'body') => {
   return (req, res, next) => {
     const result = schema.safeParse(req[target]);

@@ -12,7 +12,7 @@ const { errorHandler, notFoundHandler } = require('./middleware/error.middleware
 
 const app = express();
 
-// ─── Security middleware ──────────────────────────────────────────────────────
+// Security middleware
 app.use(helmet());
 app.use(
   cors({
@@ -22,7 +22,7 @@ app.use(
   })
 );
 
-// ─── Rate limiting ────────────────────────────────────────────────────────────
+// Rate limiting
 const globalLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 200,
@@ -39,11 +39,11 @@ const authLimiter = rateLimit({
 
 app.use(globalLimiter);
 
-// ─── Body parsing ─────────────────────────────────────────────────────────────
+// Body parsing
 app.use(express.json({ limit: '10kb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// ─── Health check ─────────────────────────────────────────────────────────────
+// Health check
 app.get('/health', (req, res) => {
   res.json({
     success: true,
@@ -53,13 +53,13 @@ app.get('/health', (req, res) => {
   });
 });
 
-// ─── API routes ───────────────────────────────────────────────────────────────
+// API routes
 app.use('/api/auth', authLimiter, authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-// ─── 404 & error handlers ─────────────────────────────────────────────────────
+// 404 & error handlers
 app.use(notFoundHandler);
 app.use(errorHandler);
 

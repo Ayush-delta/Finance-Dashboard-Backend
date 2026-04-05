@@ -2,7 +2,7 @@ const prisma = require('./client');
 const bcrypt = require('bcryptjs');
 
 async function main() {
-  console.log('🌱 Seeding database...');
+  console.log('Seeding database...');
 
   // Clear existing data
   await prisma.financialRecord.deleteMany();
@@ -104,8 +104,8 @@ async function main() {
 
   await prisma.financialRecord.createMany({ data: records });
 
-  console.log('✅ Seed complete!');
-  console.log('\n📋 Demo credentials (all passwords: password123)');
+  console.log('Seed complete!');
+  console.log('\n Demo credentials (all passwords: password123)');
   console.log('  admin@finance.dev    → ADMIN');
   console.log('  analyst@finance.dev  → ANALYST');
   console.log('  viewer@finance.dev   → VIEWER');
@@ -113,7 +113,7 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error('❌ Seed failed:', e);
+    console.error('Seed failed:', e);
     process.exit(1);
   })
   .finally(async () => {

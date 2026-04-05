@@ -7,10 +7,8 @@ const ROLE_HIERARCHY = {
   ADMIN: 2,
 };
 
-/**
- * requireRole(...roles) — user must have one of the listed roles
- * Example: requireRole('ANALYST', 'ADMIN')
- */
+// requireRole(...roles) — user must have one of the listed roles
+// Example: requireRole('ANALYST', 'ADMIN')
 const requireRole = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -34,10 +32,8 @@ const requireRole = (...roles) => {
   };
 };
 
-/**
- * requireMinRole(role) — user must have at least this role level
- * Example: requireMinRole('ANALYST') allows ANALYST and ADMIN
- */
+// requireMinRole(role) — user must have at least this role level
+// Example: requireMinRole('ANALYST') allows ANALYST and ADMIN
 const requireMinRole = (minRole) => {
   return (req, res, next) => {
     if (!req.user) {
