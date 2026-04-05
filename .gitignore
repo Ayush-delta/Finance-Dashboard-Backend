@@ -1,0 +1,11 @@
+node_modules/
+*.db
+*.db-journal
+.env
+.env.local
+.env.*.local
+dist/
+coverage/
+*.out
+*.log
+package-lock.json
