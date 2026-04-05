@@ -120,9 +120,6 @@ curl -X POST http://localhost:3000/api/auth/login \
 }
 ```
 
-> [!NOTE]
-> Save the token as `$TOKEN` for all subsequent requests.
-
 ---
 
 ## 📊 Test 1: Overall Summary (All Users)
@@ -157,9 +154,6 @@ curl http://localhost:3000/api/dashboard/summary \
 }
 ```
 
-> [!IMPORTANT]
-> The overall summary covers **₹6,12,000** income across 13 transactions and **₹2,19,500** expenses across 25 transactions. Net positive balance of **₹3,92,500**.
-
 ---
 
 ## 👤 Test 2: Per-User Summaries
@@ -167,7 +161,6 @@ curl http://localhost:3000/api/dashboard/summary \
 **Purpose:** Analyze each user's financial health individually.
 
 ```bash
-# Replace <USER_ID> with the target user's ID
 curl http://localhost:3000/api/dashboard/summary?userId=<USER_ID> \
   -H "Authorization: Bearer $TOKEN"
 ```
@@ -214,9 +207,6 @@ curl "http://localhost:3000/api/dashboard/categories?type=EXPENSE" \
 }
 ```
 
-> [!IMPORTANT]
-> **Rent** dominates at ₹88,000 (40% of all expenses), followed by **Travel** at ₹35,000 and **Shopping** at ₹20,000.
-
 ---
 
 ## 🎯 Test 4: Arjun's Expense Categories
@@ -240,9 +230,6 @@ curl "http://localhost:3000/api/dashboard/categories?type=EXPENSE&userId=cmnklv1
   ]
 }
 ```
-
-> [!NOTE]
-> Arjun's biggest expense is **Travel** (₹15,000), followed by **Rent** (₹10,000). He's the only user spending on **Gadgets**.
 
 ---
 
@@ -299,9 +286,6 @@ curl "http://localhost:3000/api/dashboard/trends/monthly?userId=cmnklv1ij000550v
 }
 ```
 
-> [!WARNING]
-> Meera's April is in the **negative** (-₹4,000) as no income has been recorded yet for the month but she has Entertainment expenses.
-
 ---
 
 ## 📋 Test 7: Neha's Records (Date Sorted — Ascending)
@@ -328,9 +312,6 @@ curl "http://localhost:3000/api/records?userId=cmnklv0o7000350vnwgb96b9k&sortBy=
   "pagination": { "total": 7, "page": 1, "limit": 20, "totalPages": 1 }
 }
 ```
-
-> [!TIP]
-> Records are correctly sorted by date ascending. The analyst can also use `order=desc` for newest-first, and `sortBy=amount` to sort by amount.
 
 ---
 
@@ -388,9 +369,6 @@ curl "http://localhost:3000/api/dashboard/range-summary?startDate=2026-03-01&end
 }
 ```
 
-> [!NOTE]
-> Vikram earned ₹1,35,000 and spent ₹59,000 in March, with a healthy net of ₹76,000. The April healthcare expense (₹4,500) is excluded from this range.
-
 ---
 
 ## 🔒 Analyst Permissions Matrix
@@ -412,9 +390,6 @@ curl "http://localhost:3000/api/dashboard/range-summary?startDate=2026-03-01&end
 | Restore records | `/api/records/:id/restore` | PATCH | ❌ Admin only |
 | Hard delete | `/api/records/:id/hard` | DELETE | ❌ Admin only |
 | Manage users | `/api/users` | * | ❌ Admin only |
-
-> [!IMPORTANT]
-> The ANALYST has **read access to all financial data** (including other users' records and dashboard analytics) but can only **create/update/delete their own records**. All admin-only operations (user management, soft-delete recovery, hard-delete) are restricted.
 
 ---
 

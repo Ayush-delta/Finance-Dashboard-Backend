@@ -58,9 +58,6 @@ curl -s -X POST http://localhost:3000/api/auth/login \
 }
 ```
 
-> [!NOTE]
-> All subsequent requests use `Authorization: Bearer <TOKEN>` from this response.
-
 ---
 
 ## 👥 2. List All Users
@@ -108,9 +105,6 @@ curl -s http://localhost:3000/api/users \
 }
 ```
 
-> [!IMPORTANT]
-> Two users found: **Ayush** (ADMIN) and **Raj** (VIEWER). Raj's ID is used for cross-user operation tests below.
-
 ---
 
 ## 📝 3. Create Record for Another User
@@ -155,9 +149,6 @@ curl -s -X POST http://localhost:3000/api/records \
   }
 }
 ```
-
-> [!TIP]
-> The `createdBy` field correctly points to **Raj**, not the admin — confirming the `userId` delegation works.
 
 ---
 
@@ -282,9 +273,6 @@ curl -s -X PATCH http://localhost:3000/api/records/cmnkca7w50006zwvnid70z05p \
   }
 }
 ```
-
-> [!TIP]
-> Ownership is preserved — `createdBy` still shows Raj even after admin edits.
 
 ---
 
@@ -415,9 +403,6 @@ curl -s http://localhost:3000/api/records/deleted \
 }
 ```
 
-> [!NOTE]
-> 4 soft-deleted records returned — records from both **Ayush** and **Raj**, sorted by `deletedAt` descending. Admin has full visibility across all users.
-
 ---
 
 ## ♻️ 10. Restore a Soft-Deleted Record
@@ -453,9 +438,6 @@ curl -s -X PATCH http://localhost:3000/api/records/cmnkca7w50006zwvnid70z05p/res
   }
 }
 ```
-
-> [!TIP]
-> After restore: `isDeleted` → `false`, `deletedAt` → `null`. The record is fully active again.
 
 ---
 
@@ -494,9 +476,6 @@ curl -s -X DELETE http://localhost:3000/api/records/cmnkca7w50006zwvnid70z05p/ha
 | Restore deleted | `/api/records/:id/restore` | PATCH | ✅ | ✅ |
 | Hard-delete | `/api/records/:id/hard` | DELETE | ✅ | ✅ |
 | List users | `/api/users` | GET | — | ✅ Admin only |
-
-> [!IMPORTANT]
-> The ADMIN role has **unrestricted access** to all record operations across all users. Non-admin roles (ANALYST, VIEWER) have scoped permissions enforced by the `requireMinRole` middleware and ownership checks in the service layer.
 
 ---
 
