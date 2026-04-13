@@ -9,7 +9,7 @@
 A production-ready REST API for a finance dashboard with role-based 
 access control, financial record management, and analytics.
 
-> Live API: https://your-render-url.onrender.com/health
+> Live API: [https://your-render-url.onrender.com/health](https://finance-dashboard-backend-75wb.onrender.com/)
 > Tech: Node.js · Express · PostgreSQL (Neon) · Prisma v7 · JWT · Zod
 
 ---
