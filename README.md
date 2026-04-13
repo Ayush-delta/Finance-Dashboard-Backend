@@ -1,6 +1,16 @@
 # Finance Dashboard Backend
 
-A production-ready REST API for a finance dashboard system with role-based access control, financial record management, and analytics.
+![Node.js](https://img.shields.io/badge/Node.js-22.x-green)
+![Express](https://img.shields.io/badge/Express-4.x-blue)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Neon-blue)
+![Prisma](https://img.shields.io/badge/Prisma-7.x-purple)
+![License](https://img.shields.io/badge/license-ISC-green)
+
+A production-ready REST API for a finance dashboard with role-based 
+access control, financial record management, and analytics.
+
+> Live API: https://your-render-url.onrender.com/health
+> Tech: Node.js · Express · PostgreSQL (Neon) · Prisma v7 · JWT · Zod
 
 ---
 
@@ -439,17 +449,7 @@ Summary for an arbitrary date range.
 
 ## Design Decisions and Tradeoffs
 
-**Soft delete for records** — Financial records carry business meaning even after deletion. Soft delete (`isDeleted`, `deletedAt`) preserves the audit trail and allows recovery. Hard delete is available to admins who explicitly need it.
-
-**Live DB lookup in auth middleware** — After verifying the JWT, the middleware re-fetches the user from the database on every request. This adds one DB query per request but means deactivated accounts are locked out immediately without waiting for the JWT to expire. Acceptable tradeoff for a finance system.
-
-**Timing-safe login** — When no user is found, the service still runs `bcrypt.compare` against a dummy hash. This prevents timing attacks where an attacker could distinguish "email not found" from "wrong password" based on response time.
-
-**Role hierarchy as an integer** — `VIEWER=0, ANALYST=1, ADMIN=2`. `requireMinRole('ANALYST')` checks `userLevel >= 1`, so ADMIN passes automatically. Adding a new role in future is one line.
-
-**Service-layer ownership checks** — The record service checks `createdById === requestingUser.id` for analyst-level operations rather than duplicating this in route middleware. Keeps authorization logic in one place per resource.
-
-**Zod coercion** — The validation middleware uses `z.coerce.date()` so date strings like `"2024-01-15"` are coerced to `Date` objects before reaching the service. Controllers receive clean, typed data.
+Please refer to [`ASSUMPTIONS.md`](./ASSUMPTIONS.md) for a detailed breakdown of the role model, soft deletion mechanics, authentication tradeoffs, database choices, and validation algorithms.
 
 ---
 
